@@ -10,6 +10,7 @@ Window {
     Rectangle {
         id: scene
         anchors.fill: parent
+        state: "LeftState"
 
         Rectangle {
             id: leftRectangle
@@ -21,6 +22,17 @@ Window {
             border.color: "black"
             border.width: 3
             radius: 5
+
+            Text {
+                id: move
+                anchors.centerIn: parent
+                text: "move"
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: scene.state = "LeftState"
+            }
         }
         Rectangle {
             id: rightRectangle
@@ -32,6 +44,17 @@ Window {
             border.color: "black"
             border.width: 3
             radius: 5
+
+            Text {
+                id: retur
+                anchors.centerIn: parent
+                text: "return"
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: scene.state = "RightState"
+            }
         }
 
         Rectangle {
@@ -43,5 +66,43 @@ Window {
             height: leftRectangle.height - 10
             radius: width / 2
         }
+        states: [
+            State {
+                name: "RightState"
+                PropertyChanges {
+                    target: ball
+                    x: rightRectangle.x + 5
+                }
+            },
+            State {
+                name: "LeftState"
+                PropertyChanges {
+                    target: ball
+                    x: leftRectangle.x + 5
+                }
+            }
+        ]
+
+        transitions: [
+            Transition {
+            from: "LeftState"
+            to: "RightState"
+            NumberAnimation {
+                properties: "x,y"
+                duration: 1000
+                easing.type: Easing.OutBounce
+            }
+        },
+            Transition {
+            from: "RightState"
+            to: "LeftState"
+            NumberAnimation {
+                properties: "x,y"
+                duration: 1000
+                easing.type: Easing.InOutExpo
+            }
+        }
+        ]
+
     }
 }
