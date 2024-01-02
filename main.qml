@@ -10,7 +10,7 @@ Window {
     Rectangle {
         id: scene
         anchors.fill: parent
-        state: "LeftState"
+        state: "RightState"
 
         Rectangle {
             id: leftRectangle
@@ -78,7 +78,7 @@ Window {
                 name: "LeftState"
                 PropertyChanges {
                     target: ball
-                    x: leftRectangle.x + 5
+                    x: ball.x += 30
                 }
             }
         ]
@@ -96,11 +96,6 @@ Window {
             Transition {
             from: "RightState"
             to: "LeftState"
-            NumberAnimation {
-                properties: "x,y"
-                duration: 1000
-                easing.type: Easing.InOutExpo
-            }
         }
         ]
 
